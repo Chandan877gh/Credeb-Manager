@@ -1,0 +1,128 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background: #f4f7f9;
+}
+
+h1 {
+  text-align: center;
+  color: #007FFF;
+}
+
+h2 {
+  margin-top: 30px;
+  color: #333;
+}
+
+form {
+  margin-bottom: 15px;
+}
+
+input, select, button {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #007FFF;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #005FCC;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  background: white;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #007FFF;
+  color: white;
+}
+
+.clickable {
+  color: #007FFF;
+  font-weight: bold;
+  cursor: pointer;
+}
+.clickable:hover {
+  text-decoration: underline;
+}
+
+/* -------------------- Vertical Tabs -------------------- */
+.sub-dashboard {
+  display: flex;
+  gap: 20px;
+}
+
+/* Sidebar menu (vertical tabs) */
+.tabs-vertical {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  background: white;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+.tabs-vertical button {
+  background: none;
+  border: none;
+  padding: 12px;
+  margin: 3px 0;
+  text-align: left;
+  font-size: 15px;
+  color: #333;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tabs-vertical button:hover {
+  background: #f0f4ff;
+  color: #007FFF;
+}
+
+.tabs-vertical button.active {
+  background: #007FFF;
+  color: white;
+  font-weight: bold;
+}
+
+/* Content area next to sidebar */
+#tab-content {
+  flex: 1;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+}
+
+header {
+  text-align: center;         /* Centers the text */
+  font-size: 28px;            /* Big bold title */
+  font-weight: bold;
+  background: #333;           /* Dark background */
+  color: #fff;                /* White text */
+  padding: 15px 0;            /* Space top & bottom */
+  letter-spacing: 1px;        /* Slight spacing between letters */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
+  position: sticky;           /* Stays at top when scrolling */
+  top: 0;
+  z-index: 1000;
+}

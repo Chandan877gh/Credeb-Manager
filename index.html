@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creditors/Debtors Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+    h1, h2 { text-align: center; }
+
+    .dashboard { text-align: center; margin-top: 50px; }
+    .dashboard button {
+      padding: 15px 25px; margin: 10px; font-size: 18px;
+      border: none; border-radius: 8px; cursor: pointer;
+    }
+    .btn-purchase { background: #333; color: white; }
+    .btn-sales { background: #333; color: white; }
+
+    .top-bar {
+      display: flex; justify-content: space-between; padding: 10px;
+      background: #333; color: white;
+    }
+
+    /* Vertical Tabs */
+    .sub-container {
+      display: flex;
+      min-height: 80vh;
+    }
+    .tabs-vertical {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      background: #eee;
+      padding: 10px;
+    }
+    .tabs-vertical button {
+      padding: 12px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+    .tabs-vertical button.active {
+      background: #333;
+      color: #fff;
+    }
+
+    #tab-content {
+      flex-grow: 1;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+
+    .hidden { display: none; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+  </style>
+</head>
+<body>
+
+<header>Credeb Manager</header>
+<!-- Main Dashboard -->
+<div id="mainDashboard" class="dashboard">
+  <h1>Dashboard</h1>
+  <button class="btn-purchase" onclick="openModule('purchase')">Credit Purchase</button>
+  <button class="btn-sales" onclick="openModule('sales')">Credit Sales</button>
+</div>
+
+<!-- Sub Dashboard -->
+<div id="subDashboard" class="hidden">
+  <div class="top-bar">
+    <span style="cursor:pointer;" onclick="goBack()">← Back</span>
+    <span id="moduleTitle"></span>
+  </div>
+
+  <div class="sub-container">
+    <!-- Vertical Tabs -->
+    <div class="tabs-vertical">
+      <button onclick="showTab('add')" id="tab-add">Add Person</button>
+      <button onclick="showTab('record')" id="tab-record">Record Transaction</button>
+      <button onclick="showTab('records')" id="tab-records">All Records</button>
+      <button onclick="showTab('history')" id="tab-history">History</button>
+      <button onclick="showTab('analytics')" id="tab-analytics">Analytics</button>
+      <button onclick="showTab('due')" id="tab-due">Due Table</button>
+      <button onclick="showTab('delete')" id="tab-delete">Delete Person</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="tab-content">
+
+      <!-- Add Person -->
+      <section id="add" class="hidden">
+        <h2>Add Person</h2>
+        <form id="addPersonForm">
+          <input type="text" id="personName" placeholder="Enter name" required>
+          <button type="submit">Add</button>
+        </form>
+      </section>
+
+      <!-- Record Transaction -->
+      <section id="record" class="hidden">
+        <h2>Record Transaction</h2>
+        <form id="transactionForm">
+          <select id="personSelect" required></select>
+          <input type="date" id="date" required>
+          <input type="number" id="amount" placeholder="Amount" required>
+          <select id="type" required>
+            <option value="credit">Credit Transaction</option>
+            <option value="payment">Payment</option>
+          </select>
+          <button type="submit">Save</button>
+        </form>
+      </section>
+
+      <!-- All Records -->
+      <section id="records" class="hidden">
+        <h2>All Records</h2>
+        <input type="text" id="searchInput" placeholder="Search Person...">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Total Credit</th>
+              <th>Total Payment</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody id="recordsTable"></tbody>
+        </table>
+      </section>
+
+      <!-- Transaction History -->
+      <section id="history" class="hidden">
+        <h2>Transaction History</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="historyTable"></tbody>
+        </table>
+        <button id="exportCSV">Export Transactions</button>
+      </section>
+
+      <!-- Analytics -->
+      <section id="analytics" class="hidden">
+        <h2>Analytics Dashboard</h2>
+        <canvas id="balanceChart" width="400" height="200"></canvas>
+      </section>
+
+      <!-- Due Table -->
+      <section id="due" class="hidden">
+        <h2>Due Table</h2>
+        <form id="dueForm">
+          <label for="creditorSelect">Select Person:</label>
+          <select id="creditorSelect"></select>
+
+          <label for="contact">Contact:</label>
+          <input type="text" id="contact" placeholder="Auto-filled">
+
+          <label for="dueDate">Due Date:</label>
+          <input type="date" id="dueDate">
+
+          <button type="submit">Save Due</button>
+        </form>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Contact</th>
+              <th>Due Date</th>
+            </tr>
+          </thead>
+          <tbody id="dueTable"></tbody>
+        </table>
+      </section>
+
+      <!-- Delete Person -->
+      <section id="delete" class="hidden">
+        <h2>Delete Person</h2>
+        <form id="deletePersonForm">
+          <label for="deletePerson">Select Person:</label>
+          <select id="deletePerson"></select>
+          <button type="submit">Delete</button>
+        </form>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

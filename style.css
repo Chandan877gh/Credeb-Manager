@@ -114,15 +114,107 @@ th {
 }
 
 header {
-  text-align: center;         /* Centers the text */
-  font-size: 28px;            /* Big bold title */
+  text-align: center;
+  font-size: 28px;
   font-weight: bold;
-  background: #333;           /* Dark background */
-  color: #fff;                /* White text */
-  padding: 15px 0;            /* Space top & bottom */
-  letter-spacing: 1px;        /* Slight spacing between letters */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow */
-  position: sticky;           /* Stays at top when scrolling */
+  background: #333;
+  color: #fff;
+  padding: 15px 0;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  position: sticky;
   top: 0;
   z-index: 1000;
+  border: 2px solid black;
+}
+
+/* -------------------- Responsive Design -------------------- */
+
+/* Tablets (768px – 1023px) */
+@media (max-width: 1023px) {
+  .sub-dashboard {
+    flex-direction: column;
+  }
+  .tabs-vertical {
+    flex-direction: row;
+    justify-content: space-around;
+    min-width: auto;
+    overflow-x: auto;
+  }
+  .tabs-vertical button {
+    flex: 1;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+  }
+  #tab-content {
+    margin-top: 15px;
+  }
+}
+
+/* Mobile (iPhone 12 & small devices ≤767px) */
+@media (max-width: 767px) {
+  body {
+    margin: 10px;
+  }
+  header {
+    font-size: 20px;
+    padding: 10px 0;
+  }
+  .sub-dashboard {
+    flex-direction: column;
+  }
+  .tabs-vertical {
+    flex-direction: row;
+    justify-content: flex-start;
+    overflow-x: scroll;
+    min-width: auto;
+    padding: 5px;
+    border-radius: 6px;
+  }
+  .tabs-vertical button {
+    flex: none;
+    font-size: 13px;
+    padding: 8px 12px;
+    white-space: nowrap;
+  }
+  #tab-content {
+    margin-top: 10px;
+    padding: 10px;
+  }
+  table {
+    font-size: 12px;
+  }
+  th, td {
+    padding: 6px;
+  }
+}
+
+/* -------------------- Analytics Chart -------------------- */
+#analytics {
+  overflow-x: auto;         /* allow horizontal scrolling */
+  padding-bottom: 10px;
+}
+
+#analytics canvas {
+  display: block;
+  min-width: 600px;         /* ensures scrollability on small screens */
+  max-width: 1200px;        /* cap chart width */
+  height: 400px;            /* default height for desktop */
+  margin: 0 auto;           /* center on larger screens */
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+  #analytics canvas {
+    height: 320px;          /* smaller height for tablets */
+  }
+}
+
+/* iPhone 12 and small screens */
+@media (max-width: 500px) {
+  #analytics canvas {
+    height: 150px;          /* shrink height further for phones */
+    min-width: 400px;       /* still scrollable horizontally */
+  }
 }

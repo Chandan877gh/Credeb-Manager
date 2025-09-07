@@ -30,7 +30,7 @@
     .tabs-vertical {
       display: flex;
       flex-direction: column;
-      width: 200px;
+      width: 125px;
       background: #eee;
       padding: 10px;
     }
@@ -79,8 +79,8 @@
     <!-- Vertical Tabs -->
     <div class="tabs-vertical">
       <button onclick="showTab('add')" id="tab-add">Add Person</button>
-      <button onclick="showTab('record')" id="tab-record">Record Transaction</button>
-      <button onclick="showTab('records')" id="tab-records">All Records</button>
+      <button onclick="showTab('record')" id="tab-record">Entry</button>
+      <button onclick="showTab('records')" id="tab-records">Records</button>
       <button onclick="showTab('history')" id="tab-history">History</button>
       <button onclick="showTab('analytics')" id="tab-analytics">Analytics</button>
       <button onclick="showTab('due')" id="tab-due">Due Table</button>
@@ -102,7 +102,7 @@
 
       <!-- Record Transaction -->
       <section id="record" class="hidden">
-        <h2>Record Transaction</h2>
+        <h2>Add Transaction</h2>
         <form id="transactionForm">
           <select id="personSelect" required></select>
           <input type="date" id="date" required>
@@ -203,3 +203,4 @@
 </body>
 
 </html>
+
